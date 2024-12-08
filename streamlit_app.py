@@ -13,8 +13,8 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
     sending_course_vec = model.encode(sending_course_desc, convert_to_tensor=True, device=device)
 
     # Encode all receiving course descriptions in batch
-    receiving_courses_descs = list(receiving_course_descs.values())
-    receiving_course_vecs = model.encode(receiving_courses_descs, convert_to_tensor=True, device=device, batch_size=32)
+    receiving_descriptions = list(receiving_course_descs.values())
+    receiving_course_vecs = model.encode(receiving_descriptions, convert_to_tensor=True, device=device, batch_size=32)
 
     # Compute cosine similarities for all pairs at once
     similarity_scores = util.pytorch_cos_sim(sending_course_vec, receiving_course_vecs)
@@ -30,33 +30,32 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 def main():
     st.title("Course Similarity Rater")
 
-     # Add a short description under the title
+    # Add a short description under the title
     st.markdown("""
-    This site allows you to see how a course at one university (the sending university) might compare to courses from a different University (the recieving University). 
+    This site allows you to see how a course at one university (the sending university) might compare to courses from a different university (the receiving university). 
     It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
-    Enter a course description and select a university to see the top 10 most similar courses.
     """)
 
     # User input for the sending course description
     sending_course_desc = st.text_area("Enter the description for the sending university course")
 
     # Dropdown to select the university
-    university = st.selectbox("Select the recieving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
+    university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-    # URLs for the university course CSV files (you can update these paths to point to your own file locations if needed)
+    # URLs for the university course CSV files
     psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
     temple_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/temple_courses_with_credits.csv"
     wcu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/wcu_courses.csv"
 
-    # Check if the user provided a course description
+    # Check if the user provided a course description and selected a university
     if sending_course_desc and university != "Select...":
         # Load the selected university's course descriptions CSV from GitHub
         if university == "Pennsylvania State University":
             courses_file_url = psu_courses_file_url
         elif university == "Temple University":
             courses_file_url = temple_courses_file_url
-        else: university == "West Chester University of PA":
-            course_file_url = wcu_courses_file_url
+        elif university == "West Chester University of PA":
+            courses_file_url = wcu_courses_file_url
 
         # Load the courses CSV
         try:
@@ -76,7 +75,7 @@ def main():
             # Display the results
             st.subheader(f"Top 10 Most Similar {university} Courses:")
             for course_title, score in top_10_courses:
-                st.write(f"Course: {course_title}, Similarity Score: {score}")
+                st.write(f"Course: {course_title}, Similarity Score: {score:.2f}")
         except Exception as e:
             st.error(f"Error loading courses: {e}")
     else:
