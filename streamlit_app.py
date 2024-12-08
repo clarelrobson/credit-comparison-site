@@ -63,4 +63,45 @@ def main():
         # Right Column: Results
         if sending_course_desc and university != "Select...":
             # URLs for the university course CSV files
-            psu_courses_file_url = "https://raw.githubusercontent.co
+            psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
+            temple_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/temple_courses_with_credits.csv"
+            wcu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/wcu_courses.csv"
+
+            # Load the selected university's course descriptions CSV
+            try:
+                if university == "Pennsylvania State University":
+                    courses_file_url = psu_courses_file_url
+                elif university == "Temple University":
+                    courses_file_url = temple_courses_file_url
+                elif university == "West Chester University of PA":
+                    courses_file_url = wcu_courses_file_url
+
+                courses_df = pd.read_csv(courses_file_url)
+
+                # Check if the necessary columns are present
+                required_columns = ['Course Title', 'Description']
+                if not all(col in courses_df.columns for col in required_columns):
+                    st.error(f"{university} courses CSV must contain the columns: {', '.join(required_columns)}.")
+                    return
+
+                # Prepare dictionaries for course titles and descriptions
+                courses = dict(zip(courses_df['Course Title'], courses_df['Description']))
+
+                # Compare the sending course description with the selected university's courses
+                top_10_courses = compare_courses_batch(sending_course_desc, courses)
+
+                # Display the results with the header
+                st.subheader(f"Top 10 Most Similar {university} Courses:")
+
+                for course_title, score in top_10_courses:
+                    st.write(f"**{course_title}** (Similarity Score: {score:.2f})")
+
+            except Exception as e:
+                st.error(f"Error loading courses: {e}")
+        else:
+            st.warning("Please enter a course description and select a university.")
+
+# Run the Streamlit app
+if __name__ == "__main__":
+    main()
+
