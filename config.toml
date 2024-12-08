@@ -4,7 +4,7 @@ port = 8501
 
 [theme]
 primaryColor = "#D33682"
-backgroundColor = "#002B36"
+backgroundColor = "#E6AE81"
 secondaryBackgroundColor = "#586E75"
 textColor = "#FDF6E3"
 font = "sans serif"
