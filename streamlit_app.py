@@ -48,15 +48,20 @@ def main():
         # Dropdown to select the university
         university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-        # Similarity Rating Explanation (Default font size)
+        # Similarity Rating Explanation (with a red box around it)
         st.markdown("""
-        ## Similarity Rating Explanation
-        - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
-        - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
-        - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
-        - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
-        - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
-        """)
+        <div style="border: 2px solid red; background-color: #f8d7da; padding: 10px;">
+            <h3>Similarity Rating Explanation</h3>
+            <p>The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
+            <ul>
+                <li><strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.</li>
+                <li><strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.</li>
+                <li><strong>0.4 - 0.6</strong>: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.</li>
+                <li><strong>0.2 - 0.4</strong>: Low Similarity – The descriptions have some overlapping content, but are generally quite different.</li>
+                <li><strong>0.0 - 0.2</strong>: Very Low Similarity – The descriptions are largely different with little to no overlap.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
     with col2:
         # Right Column: Results
@@ -90,7 +95,7 @@ def main():
                 top_10_courses = compare_courses_batch(sending_course_desc, courses)
 
                 # Display the results with the header
-                st.subheader(f"Top 10 Most Similar {university} Courses:")
+                st.subheader(f"Top 10 Most Similar {university} Courses")
 
                 for course_title, score in top_10_courses:
                     st.write(f"**{course_title}** (Similarity Score: {score:.2f})")
@@ -103,4 +108,3 @@ def main():
 # Run the Streamlit app
 if __name__ == "__main__":
     main()
-
