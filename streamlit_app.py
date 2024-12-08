@@ -34,7 +34,7 @@ def main():
     sending_course_desc = st.text_area("Enter the description for the course you'd like to compare:")
 
     # Dropdown to select the university
-    university = st.selectbox("Select University", ["Select...", "Penn State", "Temple University"])
+    university = st.selectbox("Select University", ["Select...", "Pennsylvania State University", "Temple University"])
 
     # URLs for the university course CSV files (you can update these paths to point to your own file locations if needed)
     psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
@@ -43,7 +43,7 @@ def main():
     # Check if the user provided a course description
     if sending_course_desc and university != "Select...":
         # Load the selected university's course descriptions CSV from GitHub
-        if university == "Penn State":
+        if university == "Pennsylvania State University":
             courses_file_url = psu_courses_file_url
         elif university == "Temple University":
             courses_file_url = temple_courses_file_url
