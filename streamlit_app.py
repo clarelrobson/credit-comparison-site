@@ -30,67 +30,74 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 def main():
     st.title("Course Similarity Rater")
 
-    # Add a short description under the title
-    st.markdown("""
-    This site allows you to see how a course at one university (the sending university) might compare to courses from a different university (the receiving university). 
-    It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
-    """)
+    # Create two columns
+    col1, col2 = st.columns([1, 2])  # Adjust the column ratio as needed (1:2 here)
 
-    # User input for the sending course description
-    sending_course_desc = st.text_area("Enter the description for the sending university course")
+    with col1:
+        # Left Column: Inputs
+        st.markdown("""
+        This site allows you to see how a course at one university (the sending university) might compare to courses from a different university (the receiving university). 
+        It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
+        """)
 
-    # Dropdown to select the university
-    university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
+        # User input for the sending course description
+        sending_course_desc = st.text_area("Enter the description for the sending university course")
 
-    # URLs for the university course CSV files
-    psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
-    temple_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/temple_courses_with_credits.csv"
-    wcu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/wcu_courses.csv"
+        # Dropdown to select the university
+        university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-    # Check if the user provided a course description and selected a university
-    if sending_course_desc and university != "Select...":
-        # Load the selected university's course descriptions CSV from GitHub
-        if university == "Pennsylvania State University":
-            courses_file_url = psu_courses_file_url
-        elif university == "Temple University":
-            courses_file_url = temple_courses_file_url
-        elif university == "West Chester University of PA":
-            courses_file_url = wcu_courses_file_url
+    with col2:
+        # Right Column: Results
+        if sending_course_desc and university != "Select...":
+            # URLs for the university course CSV files
+            psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
+            temple_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/temple_courses_with_credits.csv"
+            wcu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/wcu_courses.csv"
 
-        # Load the courses CSV
-        try:
-            courses_df = pd.read_csv(courses_file_url)
+            # Load the selected university's course descriptions CSV
+            try:
+                if university == "Pennsylvania State University":
+                    courses_file_url = psu_courses_file_url
+                elif university == "Temple University":
+                    courses_file_url = temple_courses_file_url
+                elif university == "West Chester University of PA":
+                    courses_file_url = wcu_courses_file_url
 
-            # Check if the necessary columns are present in the file
-            if 'Course Title' not in courses_df.columns or 'Description' not in courses_df.columns:
-                st.error(f"{university} courses CSV must contain 'Course Title' and 'Description' columns.")
-                return
+                courses_df = pd.read_csv(courses_file_url)
 
-            # Prepare a dictionary of course titles and descriptions
-            courses = dict(zip(courses_df['Course Title'], courses_df['Description']))
+                # Check if the necessary columns are present
+                required_columns = ['Course Title', 'Description', 'Course URL']
+                if not all(col in courses_df.columns for col in required_columns):
+                    st.error(f"{university} courses CSV must contain the columns: {', '.join(required_columns)}.")
+                    return
 
-            # Compare the sending course description with the selected university's courses
-            top_10_courses = compare_courses_batch(sending_course_desc, courses)
+                # Prepare dictionaries for course titles, descriptions, and URLs
+                courses = dict(zip(courses_df['Course Title'], courses_df['Description']))
+                urls = dict(zip(courses_df['Course Title'], courses_df['Course URL']))
 
-            # Display the results
-            st.subheader(f"Top 10 Most Similar {university} Courses:")
-            for course_title, score in top_10_courses:
-                st.write(f"Course: {course_title}, Similarity Score: {score:.2f}")
-        except Exception as e:
-            st.error(f"Error loading courses: {e}")
-    else:
-        st.warning("Please enter a course description and select a university.")
+                # Compare the sending course description with the selected university's courses
+                top_10_courses = compare_courses_batch(sending_course_desc, courses)
 
-    # Add description for similarity ratings
-    st.markdown("""
-    ## Similarity Rating Explanation:
-    The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
-    - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
-    - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
-    - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
-    - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
-    - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
-    """)
+                # Display the results
+                st.subheader(f"Top 10 Most Similar {university} Courses:")
+                for course_title, score in top_10_courses:
+                    course_url = urls.get(course_title, "#")
+                    st.markdown(f"- [{course_title}]({course_url}) (Similarity Score: {score:.2f})")
+            except Exception as e:
+                st.error(f"Error loading courses: {e}")
+        else:
+            st.warning("Please enter a course description and select a university.")
+
+        # Explanation of similarity ratings
+        st.markdown("""
+        ## Similarity Rating Explanation:
+        The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
+        - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
+        - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
+        - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
+        - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
+        - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
+        """)
 
 # Run the Streamlit app
 if __name__ == "__main__":
