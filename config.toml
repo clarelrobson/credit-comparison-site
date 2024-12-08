@@ -11,7 +11,3 @@ font = "sans serif"
 
 [markdown]
 linkColor = "#268BD2"
-
-git add .
-git commit -m "Update aesthetics and theme"
-git push origin main
