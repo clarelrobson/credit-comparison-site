@@ -31,6 +31,25 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 
 # Streamlit Interface
 def main():
+    # Custom CSS to change the fonts
+    st.markdown("""
+    <style>
+    /* Load Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&family=Pacifico&family=Georgia&display=swap');
+
+    /* Apply fun fonts to the header and body */
+    h1, h2, h3 {
+        font-family: 'Quattrocento', serif;
+    }
+    body {
+        font-family: 'Georgia', serif;
+    }
+    .stTextArea textarea {
+        font-family: 'Georgia', serif;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     # Create two full-width columns with a slight gap
     col1, col2 = st.columns([1.8, 1.2])  # Adjust the proportions to balance content width
 
@@ -38,7 +57,7 @@ def main():
         # Left Column: Title and Inputs
         st.title("Course Similarity Rater")
         st.markdown("""
-        This site allows you to see how a course at one university (the sending university) compares to courses from a different university (the receiving university). 
+        This site allows you to see how a course at one university (the sending university) might compare to courses from a different university (the receiving university). 
         It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
         """)
 
@@ -51,7 +70,7 @@ def main():
         # Similarity Rating Explanation (with a red box around it)
         st.markdown("""
         <div style="border: 2px solid red; background-color: #f8d7da; padding: 10px;">
-            <h3>Similarity Rating Explanation</h3>
+            <h3>Similarity Rating Explanation:</h3>
             <ul>
                 <li><strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.</li>
                 <li><strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.</li>
