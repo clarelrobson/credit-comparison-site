@@ -51,7 +51,6 @@ def main():
         # Similarity Rating Explanation (Default font size)
         st.markdown("""
         ## Similarity Rating Explanation
-        The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
         - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
         - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
         - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
