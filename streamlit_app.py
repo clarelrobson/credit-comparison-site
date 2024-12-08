@@ -29,7 +29,7 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 # Streamlit Interface
 def main():
     # Create two columns with space in between
-    col1, spacer, col2 = st.columns([6, 2, 6])  # Adjust the ratio for column spacing
+    col1, spacer, col2 = st.columns([6, 1, 6])  # Adjust the ratio for column spacing
 
     with col1:
         # Left Column: Title and Inputs
