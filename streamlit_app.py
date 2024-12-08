@@ -81,7 +81,7 @@ def main():
         - **Sending University**: The institution where the course you want to evaluate is offered. Enter the description of this course in the input box.
         - **Receiving University**: The institution where you want to see comparable courses. Select this university from the dropdown menu.
 
-        By analyzing course descriptions using advanced Natural Language Processing (NLP) techniques, this tool identifies the top 10 most similar courses from the receiving university. Each result is scored to reflect how closely the course descriptions match.
+        By analyzing course descriptions using advanced [Natural Language Processing (NLP) techniques](https://huggingface.co/sentence-transformers/paraphrase-MiniLM-L3-v2), this tool identifies the top 10 most similar courses from the receiving university. Each result is scored to reflect how closely the course descriptions match.
         """)
 
 
