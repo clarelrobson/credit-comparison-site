@@ -24,12 +24,12 @@ body, div, p, li {
 }
 
 /* Input box text color */
-textarea, input {
-    color: #3a506b; /* Same color as the body text */
-    background-color: #f0f4f8; /* Optional: Light background for the input box */
-}
-</style>
-
+    .stTextArea textarea, .stTextInput input {
+        color: #3a506b !important; /* Same color as the body text */
+        background-color: #f0f4f8 !important; /* Optional: Light background for the input box */
+    }
+ </style>
+    
 """, unsafe_allow_html=True)
 
 # Initialize the NLP model (paraphrase-MiniLM-L3-v2)
