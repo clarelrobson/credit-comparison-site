@@ -31,27 +31,8 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 
 # Streamlit Interface
 def main():
-    # Custom CSS to change the fonts
-    st.markdown("""
-    <style>
-    /* Load Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap');
-
-    /* Apply fun fonts to the header and body */
-    h1, h2, h3 {
-        font-family: 'Pacifico', cursive;
-    }
-    body {
-        font-family: 'Poppins', sans-serif;
-    }
-    .stTextArea textarea {
-        font-family: 'Poppins', sans-serif;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
     # Create two full-width columns with a slight gap
-    col1, col2 = st.columns([1.8, 1.2])  # Adjust the proportions to balance content width
+    col1, col2 = st.columns([1.2, 1.8])  # Adjust the proportions to balance content width
 
     with col1:
         # Left Column: Title and Inputs
@@ -71,6 +52,7 @@ def main():
         st.markdown("""
         <div style="border: 2px solid red; background-color: #f8d7da; padding: 10px;">
             <h3>Similarity Rating Explanation:</h3>
+            <p>The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
             <ul>
                 <li><strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.</li>
                 <li><strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.</li>
@@ -113,7 +95,7 @@ def main():
                 top_10_courses = compare_courses_batch(sending_course_desc, courses)
 
                 # Display the results with the header
-                st.subheader(f"Top 10 Most Similar {university} Courses")
+                st.subheader(f"Top 10 Most Similar {university} Courses:")
 
                 for course_title, score in top_10_courses:
                     st.write(f"**{course_title}** (Similarity Score: {score:.2f})")
