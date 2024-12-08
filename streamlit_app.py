@@ -48,6 +48,19 @@ def main():
         # Dropdown to select the university
         university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
+        # Similarity Rating Explanation (Move to the bottom of the left column with smaller text)
+        st.markdown("""
+        ## Similarity Rating Explanation:
+        <p style="font-size: 12px;">
+        The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
+        - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
+        - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
+        - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
+        - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
+        - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
+        </p>
+        """, unsafe_allow_html=True)
+
     with col2:
         # Right Column: Results
         if sending_course_desc and university != "Select...":
@@ -79,24 +92,16 @@ def main():
                 # Compare the sending course description with the selected university's courses
                 top_10_courses = compare_courses_batch(sending_course_desc, courses)
 
-                # Display the results without the "Results" header and with smaller text
+                # Display the results with the header
+                st.subheader(f"Top 10 Most Similar {university} Courses:")
+
                 for course_title, score in top_10_courses:
-                    st.markdown(f'<p style="font-size: 14px; line-height: 1.2;">- <strong>{course_title}</strong> (Similarity Score: {score:.2f})</p>', unsafe_allow_html=True)
+                    st.write(f"**{course_title}** (Similarity Score: {score:.2f})")
+
             except Exception as e:
                 st.error(f"Error loading courses: {e}")
         else:
             st.warning("Please enter a course description and select a university.")
-
-        # Explanation of similarity ratings
-        st.markdown("""
-        ## Similarity Rating Explanation:
-        The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
-        - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
-        - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
-        - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
-        - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
-        - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
-        """)
 
 # Run the Streamlit app
 if __name__ == "__main__":
