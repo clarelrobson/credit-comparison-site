@@ -32,7 +32,7 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 # Streamlit Interface
 def main():
     # Create two full-width columns with balanced proportions
-    col1, col2 = st.columns([1, 1])  # Adjust the proportions to balance content width
+    col1, col2 = st.columns([1.8, 1])  # Adjust the proportions to balance content width
 
     with col1:
         # Left Column: Title and Inputs
