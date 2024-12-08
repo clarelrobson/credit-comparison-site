@@ -32,7 +32,7 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 # Streamlit Interface
 def main():
     # Create two full-width columns with a slight gap
-    col1, col2 = st.columns([1.8, 1.8])  # Adjust the proportions to balance content width
+    col1, col2 = st.columns([1.2, 1.8])  # Adjust the proportions to balance content width
 
     with col1:
         # Left Column: Title and Inputs
@@ -68,14 +68,13 @@ def main():
                 courses_df = pd.read_csv(courses_file_url)
 
                 # Check if the necessary columns are present
-                required_columns = ['Course Title', 'Description', 'Course URL']
+                required_columns = ['Course Title', 'Description']
                 if not all(col in courses_df.columns for col in required_columns):
                     st.error(f"{university} courses CSV must contain the columns: {', '.join(required_columns)}.")
                     return
 
-                # Prepare dictionaries for course titles, descriptions, and URLs
+                # Prepare dictionaries for course titles and descriptions
                 courses = dict(zip(courses_df['Course Title'], courses_df['Description']))
-                urls = dict(zip(courses_df['Course Title'], courses_df['Course URL']))
 
                 # Compare the sending course description with the selected university's courses
                 top_10_courses = compare_courses_batch(sending_course_desc, courses)
@@ -84,8 +83,7 @@ def main():
                 st.subheader(f"Top 10 Most Similar Courses at {university}:")
                 st.markdown("### Results")
                 for course_title, score in top_10_courses:
-                    course_url = urls.get(course_title, "#")
-                    st.markdown(f"- [{course_title}]({course_url}) (Similarity Score: {score:.2f})")
+                    st.markdown(f"- **{course_title}** (Similarity Score: {score:.2f})")
             except Exception as e:
                 st.error(f"Error loading courses: {e}")
         else:
