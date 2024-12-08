@@ -28,13 +28,12 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 
 # Streamlit Interface
 def main():
-    st.title("Course Similarity Rater")
-
-    # Create two columns
-    col1, col2 = st.columns([1, 2])  # Adjust the column ratio as needed (1:2 here)
+    # Create two columns with space in between
+    col1, spacer, col2 = st.columns([1, 0.2, 2])  # Adjust the ratio for column spacing
 
     with col1:
-        # Left Column: Inputs
+        # Left Column: Title and Inputs
+        st.title("Course Similarity Rater")
         st.markdown("""
         This site allows you to see how a course at one university (the sending university) might compare to courses from a different university (the receiving university). 
         It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
@@ -79,7 +78,8 @@ def main():
                 top_10_courses = compare_courses_batch(sending_course_desc, courses)
 
                 # Display the results
-                st.subheader(f"Top 10 Most Similar {university} Courses:")
+                st.subheader(f"Top 10 Most Similar Courses at {university}:")
+                st.markdown("### Results")
                 for course_title, score in top_10_courses:
                     course_url = urls.get(course_title, "#")
                     st.markdown(f"- [{course_title}]({course_url}) (Similarity Score: {score:.2f})")
