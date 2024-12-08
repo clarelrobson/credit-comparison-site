@@ -38,7 +38,7 @@ def main():
         # Left Column: Title and Inputs
         st.title("Course Similarity Rater")
         st.markdown("""
-        This site allows you to see how a course at one university (the sending university) might compare to courses from a different university (the receiving university). 
+        This site allows you to see how a course at one university (the sending university) compares to courses from a different university (the receiving university). 
         It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
         """)
 
