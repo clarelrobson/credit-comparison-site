@@ -55,7 +55,7 @@ def main():
             courses_file_url = psu_courses_file_url
         elif university == "Temple University":
             courses_file_url = temple_courses_file_url
-        else university == "West Chester University of PA":
+        else: university == "West Chester University of PA":
             course_file_url = wcu_courses_file_url
 
         # Load the courses CSV
