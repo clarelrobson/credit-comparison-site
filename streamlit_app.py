@@ -50,9 +50,14 @@ def main():
         # Left Column: Title and Inputs
         st.title("Course Similarity Rater")
         st.markdown("""
-        This site allows you to see how a course at one university (the sending university) might compare to courses from a different university (the receiving university). 
-        It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
+        This tool helps you determine how a course at one university (the **sending university**) compares to courses offered at another university (the **receiving university**). 
+
+        - **Sending University**: The institution where the course you want to evaluate is offered. Enter the description of this course in the input box.
+        - **Receiving University**: The institution where you want to see comparable courses. Select this university from the dropdown menu.
+
+        By analyzing course descriptions using advanced Natural Language Processing (NLP) techniques, this tool identifies the top 10 most similar courses from the receiving university. Each result is scored to reflect how closely the course descriptions match.
         """)
+
 
         # User input for the sending course description
         sending_course_desc = st.text_area("Enter the description for the sending university course")
