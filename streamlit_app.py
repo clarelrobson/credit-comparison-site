@@ -64,19 +64,19 @@ def main():
         st.markdown("""
         <h3>Similarity Rating Explanation</h3>
         <div style="background-color:#d0f0e9; padding:5px; margin-bottom:5px;">
-            <strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.
+            <strong>0.8 - 1.0</strong>: Very High Similarity – Descriptions are nearly identical, with minimal difference.
         </div>
         <div style="background-color:#eaf9d6; padding:5px; margin-bottom:5px;">
-            <strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.
+            <strong>0.6 - 0.8</strong>: High Similarity – Descriptions are very similar, with some differences.
         </div>
         <div style="background-color:#fff9e6; padding:5px; margin-bottom:5px;">
-            <strong>0.4 - 0.6</strong>: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
+            <strong>0.4 - 0.6</strong>: Moderate Similarity – Descriptions have noticeable differences, but share common topics.
         </div>
         <div style="background-color:#ffe6cc; padding:5px; margin-bottom:5px;">
-            <strong>0.2 - 0.4</strong>: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
+            <strong>0.2 - 0.4</strong>: Low Similarity – Descriptions have overlapping content, but are generally quite different.
         </div>
         <div style="background-color:#ffd6cc; padding:5px; margin-bottom:5px;">
-            <strong>0.0 - 0.2</strong>: Very Low Similarity – The descriptions are largely different with little to no overlap.
+            <strong>0.0 - 0.2</strong>: Very Low Similarity – Descriptions are largely different with little to no overlap.
         </div>
         """, unsafe_allow_html=True)
 
