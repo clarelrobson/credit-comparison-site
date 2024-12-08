@@ -32,9 +32,9 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 # Get pastel color based on similarity score
 def get_color(score):
     if score >= 0.8:
-        return "#d0f0e9"  # Bluish Green Pastel
+        return #c8e8e4  # Bluish Green Pastel
     elif score >= 0.6:
-        return "#eaf9d6"  # Yellowish Green Pastel
+        return #dff7b0  # Yellowish Green Pastel
     elif score >= 0.4:
         return "#fff9e6"  # Pastel Yellow
     elif score >= 0.2:
