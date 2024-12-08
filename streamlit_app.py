@@ -81,9 +81,9 @@ def main():
 
                 # Display the results
                 st.subheader(f"Top 10 Most Similar Courses at {university}:")
-                st.markdown("### Results")
                 for course_title, score in top_10_courses:
-                    st.markdown(f"- **{course_title}** (Similarity Score: {score:.2f})")
+                    compressed_title = (course_title[:50] + '...') if len(course_title) > 50 else course_title
+                    st.markdown(f"- **{compressed_title}** (Similarity Score: {score:.2f})")
             except Exception as e:
                 st.error(f"Error loading courses: {e}")
         else:
