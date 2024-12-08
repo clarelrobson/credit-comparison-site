@@ -30,6 +30,13 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 def main():
     st.title("Course Similarity Rater")
 
+     # Add a short description under the title
+    st.markdown("""
+    This site allows you to see how a course at one university (the sending university) might compare to courses from a different University (the recieving University). 
+    It uses natural language processing (NLP) techniques to find the most similar courses based on their descriptions.
+    Enter a course description and select a university to see the top 10 most similar courses.
+    """)
+
     # User input for the sending course description
     sending_course_desc = st.text_area("Enter the description for the course you'd like to compare:")
 
