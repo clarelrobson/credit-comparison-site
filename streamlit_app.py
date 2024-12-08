@@ -32,7 +32,7 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 # Streamlit Interface
 def main():
     # Create two full-width columns with a slight gap
-    col1, col2 = st.columns([1, 1])  # Adjust the proportions to balance content width
+    col1, col2 = st.columns([1.2, 1.8])  # Adjust the proportions to balance content width
 
     with col1:
         # Left Column: Title and Inputs
@@ -48,10 +48,10 @@ def main():
         # Dropdown to select the university
         university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-        # Similarity Rating Explanation (Move to the bottom of the left column with smaller text)
+        # Similarity Rating Explanation (Move to the bottom of the left column with a slightly larger font size)
         st.markdown("""
         ## Similarity Rating Explanation:
-        <p style="font-size: 12px;">
+        <p style="font-size: 14px;">
         The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
         - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
         - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
