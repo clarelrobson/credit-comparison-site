@@ -6,6 +6,25 @@ import torch
 # Set Streamlit page layout to "wide"
 st.set_page_config(layout="wide")
 
+st.markdown("""
+<style>
+/* Title color */
+h1 {
+    color: #0a1128; /* Super dark navy blue for the title */
+}
+
+/* Subheader color */
+h2, h3 {
+    color: #1c3144; /* Slightly lighter navy blue for headers */
+}
+
+/* Body text color */
+body, div, p, li {
+    color: #3a506b; /* Grayish dark navy blue for body text */
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Initialize the NLP model (paraphrase-MiniLM-L3-v2)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = SentenceTransformer('paraphrase-MiniLM-L3-v2', device=device)
