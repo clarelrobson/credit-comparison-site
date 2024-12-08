@@ -10,12 +10,12 @@ st.markdown("""
 <style>
 /* Title color */
 h1 {
-    color: #0a1128; /* Super dark navy blue for the title */
+    color: #1c3144; /* Dark navy blue for the title */
 }
 
 /* Subheader color */
 h2, h3 {
-    color: #1c3144; /* Slightly lighter navy blue for headers */
+    color: #1c3144; /* D navy blue for headers */
 }
 
 /* Body text color */
