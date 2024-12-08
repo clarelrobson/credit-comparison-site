@@ -30,7 +30,13 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 def main():
     st.title("Course Similarity Rater")
 
-    # Add description for similarity ratings
+    # User input for the sending course description
+    sending_course_desc = st.text_area("Enter the description for the course you'd like to compare:")
+
+    # Dropdown to select the university
+    university = st.selectbox("Select University", ["Penn State"])
+
+     # Add description for similarity ratings
     st.markdown("""
     ## Similarity Rating Explanation:
     The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
@@ -40,12 +46,6 @@ def main():
     - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
     - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
     """)
-
-    # User input for the sending course description
-    sending_course_desc = st.text_area("Enter the description for the course you'd like to compare:")
-
-    # Dropdown to select the university
-    university = st.selectbox("Select University", ["Penn State"])
 
     # URL for the Penn State CSV file in the GitHub repository
     psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
@@ -72,6 +72,8 @@ def main():
             st.write(f"Course: {course_title}, Similarity Score: {score}")
     else:
         st.warning("Please enter a course description and select a university.")
+
+
 
 # Run the Streamlit app
 if __name__ == "__main__":
