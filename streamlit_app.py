@@ -29,10 +29,23 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
     sorted_results = sorted(results.items(), key=lambda item: item[1], reverse=True)
     return sorted_results[:10]
 
+# Get color based on similarity score
+def get_color(score):
+    if score >= 0.8:
+        return "#004d00"  # Dark Green
+    elif score >= 0.6:
+        return "#99ff99"  # Light Green
+    elif score >= 0.4:
+        return "#ffff99"  # Yellow
+    elif score >= 0.2:
+        return "#ffcc99"  # Orange
+    else:
+        return "#ff6666"  # Red
+
 # Streamlit Interface
 def main():
     # Create two full-width columns with balanced proportions
-    col1, col2 = st.columns([1.8, 1])  # Adjust the proportions to balance content width
+    col1, col2 = st.columns([1.9, 1])
 
     with col1:
         # Left Column: Title and Inputs
@@ -48,18 +61,16 @@ def main():
         # Dropdown to select the university
         university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-        # Similarity Rating Explanation (with a red box around it)
+        # Similarity Rating Explanation (with color-coded lines)
         st.markdown("""
-        <div style="border: 2px solid red; background-color: #f8d7da; padding: 10px;">
-            <h3>Similarity Rating Explanation</h3>
-            <ul>
-                <li><strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.</li>
-                <li><strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.</li>
-                <li><strong>0.4 - 0.6</strong>: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.</li>
-                <li><strong>0.2 - 0.4</strong>: Low Similarity – The descriptions have some overlapping content, but are generally quite different.</li>
-                <li><strong>0.0 - 0.2</strong>: Very Low Similarity – The descriptions are largely different with little to no overlap.</li>
-            </ul>
-        </div>
+        <h3>Similarity Rating Explanation</h3>
+        <ul>
+            <li style="background-color:#004d00; color:white; padding:5px;"><strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.</li>
+            <li style="background-color:#99ff99; padding:5px;"><strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.</li>
+            <li style="background-color:#ffff99; padding:5px;"><strong>0.4 - 0.6</strong>: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.</li>
+            <li style="background-color:#ffcc99; padding:5px;"><strong>0.2 - 0.4</strong>: Low Similarity – The descriptions have some overlapping content, but are generally quite different.</li>
+            <li style="background-color:#ff6666; padding:5px; color:white;"><strong>0.0 - 0.2</strong>: Very Low Similarity – The descriptions are largely different with little to no overlap.</li>
+        </ul>
         """, unsafe_allow_html=True)
 
     with col2:
@@ -97,7 +108,11 @@ def main():
                 st.subheader(f"Top 10 Most Similar {university} Courses")
 
                 for course_title, score in top_10_courses:
-                    st.write(f"**{course_title}** (Similarity Score: {score:.2f})")
+                    st.markdown(f"""
+                    <div style="background-color:{get_color(score)}; padding:10px; margin-bottom:5px;">
+                        <strong>{course_title}</strong> (Similarity Score: {score:.2f})
+                    </div>
+                    """, unsafe_allow_html=True)
 
             except Exception as e:
                 st.error(f"Error loading courses: {e}")
