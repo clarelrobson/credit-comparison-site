@@ -35,17 +35,17 @@ def main():
     st.markdown("""
     <style>
     /* Load Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&family=Pacifico&family=Georgia&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap');
 
     /* Apply fun fonts to the header and body */
     h1, h2, h3 {
-        font-family: 'Quattrocento', serif;
+        font-family: 'Pacifico', cursive;
     }
     body {
-        font-family: 'Georgia', serif;
+        font-family: 'Poppins', sans-serif;
     }
     .stTextArea textarea {
-        font-family: 'Georgia', serif;
+        font-family: 'Poppins', sans-serif;
     }
     </style>
     """, unsafe_allow_html=True)
