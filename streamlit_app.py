@@ -44,7 +44,7 @@ def get_color(score):
 # Streamlit Interface
 def main():
     # Create two full-width columns with balanced proportions
-    col1, col2 = st.columns([1, 1])
+    col1, col2 = st.columns([1.5, 1])
 
     with col1:
         # Left Column: Title and Inputs
