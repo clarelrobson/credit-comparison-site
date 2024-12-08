@@ -79,11 +79,9 @@ def main():
                 # Compare the sending course description with the selected university's courses
                 top_10_courses = compare_courses_batch(sending_course_desc, courses)
 
-                # Display the results
-                st.subheader(f"Top 10 Most Similar Courses at {university}:")
+                # Display the results without the "Results" header and with smaller text
                 for course_title, score in top_10_courses:
-                    compressed_title = (course_title[:50] + '...') if len(course_title) > 50 else course_title
-                    st.markdown(f"- **{compressed_title}** (Similarity Score: {score:.2f})")
+                    st.markdown(f'<p style="font-size: 14px; line-height: 1.2;">- <strong>{course_title}</strong> (Similarity Score: {score:.2f})</p>', unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"Error loading courses: {e}")
         else:
