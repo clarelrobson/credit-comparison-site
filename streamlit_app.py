@@ -28,10 +28,21 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 
 # Streamlit Interface
 def main():
-    st.title("Course Description Similarity Finder")
+    st.title("Course Similarity Rater")
+
+    # Add description for similarity ratings
+    st.markdown("""
+    ## Similarity Rating Explanation:
+    The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
+    - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
+    - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
+    - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
+    - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
+    - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
+    """)
 
     # User input for the sending course description
-    sending_course_desc = st.text_area("Enter the course description you want to compare:")
+    sending_course_desc = st.text_area("Enter the description for the course you'd like to compare:")
 
     # Dropdown to select the university
     university = st.selectbox("Select University", ["Penn State"])
