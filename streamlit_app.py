@@ -52,7 +52,6 @@ def main():
         st.markdown("""
         <div style="border: 2px solid red; background-color: #f8d7da; padding: 10px;">
             <h3>Similarity Rating Explanation</h3>
-            <p>The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
             <ul>
                 <li><strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.</li>
                 <li><strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.</li>
