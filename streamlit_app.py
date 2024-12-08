@@ -36,17 +36,6 @@ def main():
     # Dropdown to select the university
     university = st.selectbox("Select University", ["Penn State"])
 
-     # Add description for similarity ratings
-    st.markdown("""
-    ## Similarity Rating Explanation:
-    The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
-    - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
-    - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
-    - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
-    - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
-    - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
-    """)
-
     # URL for the Penn State CSV file in the GitHub repository
     psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
 
@@ -73,7 +62,16 @@ def main():
     else:
         st.warning("Please enter a course description and select a university.")
 
-
+      # Add description for similarity ratings
+        st.markdown("""
+        ## Similarity Rating Explanation:
+        The similarity rating is a value between 0 and 1 that indicates how closely the course description you provided matches each course in the database. 
+        - **0.8 - 1.0**: Very High Similarity – The descriptions are nearly identical, with minimal difference.
+        - **0.6 - 0.8**: High Similarity – The descriptions are very similar, but there may be some differences.
+        - **0.4 - 0.6**: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
+        - **0.2 - 0.4**: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
+        - **0.0 - 0.2**: Very Low Similarity – The descriptions are largely different with little to no overlap.
+        """)
 
 # Run the Streamlit app
 if __name__ == "__main__":
