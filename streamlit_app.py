@@ -29,23 +29,23 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
     sorted_results = sorted(results.items(), key=lambda item: item[1], reverse=True)
     return sorted_results[:10]
 
-# Get color based on similarity score
+# Get pastel color based on similarity score
 def get_color(score):
     if score >= 0.8:
-        return "#004d00"  # Dark Green
+        return "#d9f2d9"  # Pastel Green
     elif score >= 0.6:
-        return "#99ff99"  # Light Green
+        return "#e6f7e6"  # Light Pastel Green
     elif score >= 0.4:
-        return "#ffff99"  # Yellow
+        return "#fff9e6"  # Pastel Yellow
     elif score >= 0.2:
-        return "#ffcc99"  # Orange
+        return "#ffe6cc"  # Pastel Orange
     else:
-        return "#ff6666"  # Red
+        return "#ffd6cc"  # Pastel Red
 
 # Streamlit Interface
 def main():
     # Create two full-width columns with balanced proportions
-    col1, col2 = st.columns([1.9, 1])
+    col1, col2 = st.columns([1, 1])
 
     with col1:
         # Left Column: Title and Inputs
@@ -61,16 +61,24 @@ def main():
         # Dropdown to select the university
         university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-        # Similarity Rating Explanation (with color-coded lines)
+        # Similarity Rating Explanation (with pastel highlights and no bullets)
         st.markdown("""
         <h3>Similarity Rating Explanation</h3>
-        <ul>
-            <li style="background-color:#004d00; color:white; padding:5px;"><strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.</li>
-            <li style="background-color:#99ff99; padding:5px;"><strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.</li>
-            <li style="background-color:#ffff99; padding:5px;"><strong>0.4 - 0.6</strong>: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.</li>
-            <li style="background-color:#ffcc99; padding:5px;"><strong>0.2 - 0.4</strong>: Low Similarity – The descriptions have some overlapping content, but are generally quite different.</li>
-            <li style="background-color:#ff6666; padding:5px; color:white;"><strong>0.0 - 0.2</strong>: Very Low Similarity – The descriptions are largely different with little to no overlap.</li>
-        </ul>
+        <div style="background-color:#d9f2d9; padding:5px; margin-bottom:5px;">
+            <strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.
+        </div>
+        <div style="background-color:#e6f7e6; padding:5px; margin-bottom:5px;">
+            <strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.
+        </div>
+        <div style="background-color:#fff9e6; padding:5px; margin-bottom:5px;">
+            <strong>0.4 - 0.6</strong>: Moderate Similarity – The descriptions have noticeable differences, but share common topics or structure.
+        </div>
+        <div style="background-color:#ffe6cc; padding:5px; margin-bottom:5px;">
+            <strong>0.2 - 0.4</strong>: Low Similarity – The descriptions have some overlapping content, but are generally quite different.
+        </div>
+        <div style="background-color:#ffd6cc; padding:5px; margin-bottom:5px;">
+            <strong>0.0 - 0.2</strong>: Very Low Similarity – The descriptions are largely different with little to no overlap.
+        </div>
         """, unsafe_allow_html=True)
 
     with col2:
