@@ -32,16 +32,15 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 # Get pastel color based on similarity score
 def get_color(score):
     if score >= 0.8:
-        return #c8e8e4  # Bluish Green Pastel
+        return "#d0f0e9"  # Bluish Green Pastel
     elif score >= 0.6:
-        return #dff7b0  # Yellowish Green Pastel
+        return "#eaf9d6"  # Yellowish Green Pastel
     elif score >= 0.4:
         return "#fff9e6"  # Pastel Yellow
     elif score >= 0.2:
         return "#ffe6cc"  # Pastel Orange
     else:
         return "#ffd6cc"  # Pastel Red
-
 # Streamlit Interface
 def main():
     # Create two full-width columns with balanced proportions
@@ -61,13 +60,13 @@ def main():
         # Dropdown to select the university
         university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-        # Similarity Rating Explanation (with pastel highlights and no bullets)
+        # Similarity Rating Explanation (with updated pastel highlights and no bullets)
         st.markdown("""
         <h3>Similarity Rating Explanation</h3>
-        <div style="background-color:#d9f2d9; padding:5px; margin-bottom:5px;">
+        <div style="background-color:#d0f0e9; padding:5px; margin-bottom:5px;">
             <strong>0.8 - 1.0</strong>: Very High Similarity – The descriptions are nearly identical, with minimal difference.
         </div>
-        <div style="background-color:#e6f7e6; padding:5px; margin-bottom:5px;">
+        <div style="background-color:#eaf9d6; padding:5px; margin-bottom:5px;">
             <strong>0.6 - 0.8</strong>: High Similarity – The descriptions are very similar, but there may be some differences.
         </div>
         <div style="background-color:#fff9e6; padding:5px; margin-bottom:5px;">
