@@ -3,6 +3,9 @@ from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 import torch
 
+# Set Streamlit page layout to "wide"
+st.set_page_config(layout="wide")
+
 # Initialize the NLP model (paraphrase-MiniLM-L3-v2)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = SentenceTransformer('paraphrase-MiniLM-L3-v2', device=device)
@@ -28,8 +31,8 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
 
 # Streamlit Interface
 def main():
-    # Create two columns with space in between
-    col1, spacer, col2 = st.columns([10, 1, 10])  # Adjust the ratio for column spacing
+    # Create two full-width columns with a slight gap
+    col1, col2 = st.columns([1.2, 1.8])  # Adjust the proportions to balance content width
 
     with col1:
         # Left Column: Title and Inputs
