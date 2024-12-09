@@ -157,10 +157,16 @@ def main():
         else:
             st.warning("Please enter a course description and select a university.")
 
-        # Add disclaimer text
-        st.markdown("""
-        **Disclaimer:** This tool is not a guarantee that the sending course will be accepted for credit by the receiving university. It serves as a starting point for students to petition for credit or for universities to explore potential course equivalencies.
-        """, unsafe_allow_html=True)
+        # Disclaimer heading
+    st.markdown("<h3 style='color:#1e3d58;'>Disclaimer</h3>", unsafe_allow_html=True)
+    
+    # Disclaimer body text with a light blue rounded box
+    st.markdown("""
+    <div style="background-color:#d4e8f7; padding: 15px; border-radius: 10px; color: #1e3d58;">
+        <p>This tool is not an indicator of whether the sending course can actually be credited as one of the courses from the receiving university. 
+        It's simply a starting point for students to petition for credit or for universities to easily assess which courses could potentially be assigned credit.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Run the Streamlit app
 if __name__ == "__main__":
