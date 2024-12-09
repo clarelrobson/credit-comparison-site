@@ -74,7 +74,7 @@ def main():
 
     with col1:
         # Left Column: Title and Inputs
-        st.title("Course Similarity Rater")
+        st.title("Course Comparison Tool")
         st.markdown("""
         This tool helps you determine how a course at one university (the **sending university**) compares to courses offered at another university (the **receiving university**). 
 
