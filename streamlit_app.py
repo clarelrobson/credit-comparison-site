@@ -1,3 +1,4 @@
+# Load necessary packages
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
@@ -6,6 +7,7 @@ import torch
 # Set Streamlit page layout to "wide"
 st.set_page_config(layout="wide")
 
+# Website aesthetic customizations
 st.markdown("""
 <style>
 /* Title color */
@@ -33,10 +35,10 @@ body, div, p, li {
 """, unsafe_allow_html=True)
 
 # Initialize the NLP model (paraphrase-MiniLM-L3-v2)
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # use gpu
 model = SentenceTransformer('paraphrase-MiniLM-L3-v2', device=device)
 
-# Compare the course description with courses from the selected university using Sentence Transformers
+# Compare the course description with courses from the selected university using the model
 def compare_courses_batch(sending_course_desc, receiving_course_descs):
     # Encode the sending course description
     sending_course_vec = model.encode(sending_course_desc, convert_to_tensor=True, device=device)
@@ -55,22 +57,23 @@ def compare_courses_batch(sending_course_desc, receiving_course_descs):
     sorted_results = sorted(results.items(), key=lambda item: item[1], reverse=True)
     return sorted_results[:10]
 
-# Get pastel color based on similarity score
+# Get color based on similarity score
 def get_color(score):
     if score >= 0.8:
-        return "#d0f0e9"  # Bluish Green Pastel
+        return "#d0f0e9"  # blue/green
     elif score >= 0.6:
-        return "#eaf9d6"  # Yellowish Green Pastel
+        return "#eaf9d6"  # yellow/green
     elif score >= 0.4:
-        return "#fff9e6"  # Pastel Yellow
+        return "#fff9e6"  # yellow
     elif score >= 0.2:
-        return "#ffe6cc"  # Pastel Orange
+        return "#ffe6cc"  # orange
     else:
-        return "#ffd6cc"  # Pastel Red
+        return "#ffd6cc"  # red
+
 # Streamlit Interface
 def main():
-    # Create two full-width columns with balanced proportions
-    col1, col2 = st.columns([1.5, 1])
+    # Create two columns
+    col1, col2 = st.columns([1.5, 1]) # set column proportions
 
     with col1:
         # Left Column: Title and Inputs
@@ -84,14 +87,13 @@ def main():
         By analyzing course descriptions using advanced [Natural Language Processing (NLP) techniques](https://huggingface.co/sentence-transformers/paraphrase-MiniLM-L3-v2), this tool identifies the top 10 most similar courses from the receiving university. Each result is scored to reflect how closely the course descriptions match.
         """)
 
-
         # User input for the sending course description
         sending_course_desc = st.text_area("Enter the description for the sending university course")
 
         # Dropdown to select the university
         university = st.selectbox("Select the receiving university", ["Select...", "Pennsylvania State University", "Temple University", "West Chester University of PA"])
 
-        # Similarity Rating Explanation (with updated pastel highlights and no bullets)
+        # Similarity Rating Explanation
         st.markdown("""
         <h3>Similarity Rating Explanation</h3>
         <div style="background-color:#d0f0e9; padding:5px; margin-bottom:5px;">
@@ -112,7 +114,7 @@ def main():
         """, unsafe_allow_html=True)
 
     with col2:
-        # Right Column: Results
+        # Right Column: Results and Disclaimer
         if sending_course_desc and university != "Select...":
             # URLs for the university course CSV files
             psu_courses_file_url = "https://raw.githubusercontent.com/clarelrobson/credit-comparison-site/main/psu_courses_with_credits.csv"
@@ -160,7 +162,7 @@ def main():
         # Disclaimer heading
         st.markdown("<h3 style='color:#1e3d58;'>Disclaimer</h3>", unsafe_allow_html=True)
     
-        # Disclaimer body text with a light blue rounded box
+        # Disclaimer body text
         st.markdown("""
         <div style="background-color:#f0f4f8; padding: 15px; border-radius: 10px; color: #1e3d58;">
             <p>This tool is not an indicator of whether the sending course is/will be credited as one of the courses from the receiving university. 
