@@ -4,8 +4,12 @@ from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 import torch
 
-# Set Streamlit page layout to "wide"
-st.set_page_config(layout="wide")
+# Page configs
+st.set_page_config(
+    page_title="CourseMatch",  # New site name
+    page_icon="🎓",          # Optional emoji or favicon URL
+    layout="wide",           # Optional: Layout customization
+)
 
 # Website aesthetic customizations
 st.markdown("""
@@ -77,7 +81,7 @@ def main():
 
     with col1:
         # Left Column: Title and Inputs
-        st.title("Course Comparison Tool")
+        st.title("Course Match")
         st.markdown("""
         This tool helps you determine how a course at one university (the **sending university**) compares to courses offered at another university (the **receiving university**). 
 
